@@ -1,10 +1,10 @@
 import { useState } from 'react'
 
-function RatingSelect({ select }) {
+function RatingSelect({ selectedRating }) {
 	const [selected, setSelected] = useState(10)
 	const handleChange = (input) => {
 		setSelected(+input.target.value) // + sign to convert to number
-		select(+input.target.value)
+		selectedRating(selected)
 	}
 	const arrayRating = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 	return (
