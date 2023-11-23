@@ -4,7 +4,6 @@ import { useState } from 'react'
 import FeedbackData from './components/data/FeedbackData'
 import FeedbackStats from './components/FeedbackStats'
 import FeedbackForm from './components/FeedbackForm'
-import { v4 as uuidv4 } from 'uuid'
 function App() {
 	const [feedback, setFeedback] = useState(FeedbackData)
 
@@ -15,7 +14,7 @@ function App() {
 	}
 
 	const handleAdd = (newFeedback) => {
-		newFeedback.id = parseInt(uuidv4())
+		newFeedback.id = +new Date()
 		console.log(newFeedback)
 		//you cant just push newfeedback to set feedback, you need to copy the array then spread the old feedback
 		setFeedback([newFeedback, ...feedback])
