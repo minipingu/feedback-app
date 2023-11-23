@@ -1,11 +1,8 @@
-import { useState } from 'react'
-
-function RatingSelect({ selectedRating }) {
-	const [selected, setSelected] = useState(10)
+function RatingSelect({ rating, setRating }) {
 	const handleChange = (input) => {
-		setSelected(+input.target.value) // + sign to convert to number
-		selectedRating(selected)
+		setRating(+input.target.value) // + sign to convert to number
 	}
+
 	const arrayRating = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 	return (
 		<ul className='rating'>
@@ -17,7 +14,7 @@ function RatingSelect({ selectedRating }) {
 						name='rating'
 						value={number}
 						onChange={handleChange}
-						checked={selected === number}
+						checked={rating === number}
 					/>
 					<label htmlFor={`num${number}`}>{number}</label>
 				</li>

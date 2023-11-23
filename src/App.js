@@ -14,16 +14,17 @@ function App() {
 		}
 	}
 
-	const addFeedback = (newFeedback) => {
-		newFeedback.id = uuidv4()
-		setFeedback(feedback.push(newFeedback))
-		console.log(feedback)
+	const handleAdd = (newFeedback) => {
+		newFeedback.id = parseInt(uuidv4())
+		console.log(newFeedback)
+		//you cant just push newfeedback to set feedback, you need to copy the array then spread the old feedback
+		setFeedback([newFeedback, ...feedback])
 	}
 	return (
 		<>
 			<Header />
 			<div className='container'>
-				<FeedbackForm addFeedback={addFeedback} />
+				<FeedbackForm handleAdd={handleAdd} />
 				<FeedbackStats feedback={feedback} />
 				<FeedbackList feedback={feedback} handleDelete={deleteFeedback} />
 			</div>
