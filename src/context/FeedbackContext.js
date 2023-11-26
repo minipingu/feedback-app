@@ -1,22 +1,23 @@
 import { createContext, useState } from 'react'
+import FeedbackData from '../components/data/FeedbackData'
 
 const FeedbackContext = createContext()
 
 export const FeedbackProvider = ({ children }) => {
-	const [feedback, setFeedback] = useState([
-		{
-			id: 1,
-			text: 'This item is from context',
-			rating: 10,
-		},
-	])
+	const [feedback, setFeedback] = useState(FeedbackData)
+	const [feedbackEdit, setFeedbackEdit] = useState({
+		item: {},
+		edit: false,
+	})
 
+	//deleteFeedback
 	const deleteFeedback = (id) => {
 		if (window.confirm('Are you sure you want to delete?')) {
 			setFeedback(feedback.filter((item) => item.id !== id))
 		}
 	}
 
+	//add Feedback
 	const addFeedback = (newFeedback) => {
 		newFeedback.id = +new Date()
 		console.log(newFeedback)
@@ -24,9 +25,23 @@ export const FeedbackProvider = ({ children }) => {
 		setFeedback([newFeedback, ...feedback])
 	}
 
+	//set item to be updated
+	const editFeedback = (item) => {
+		setFeedbackEdit({
+			item,
+			edit: true,
+		})
+	}
+
 	return (
 		<FeedbackContext.Provider
-			value={{ feedback, deleteFeedback, addFeedback }}>
+			value={{
+				feedback,
+				deleteFeedback,
+				addFeedback,
+				editFeedback,
+				feedbackEdit,
+			}}>
 			{children}
 		</FeedbackContext.Provider>
 	)
