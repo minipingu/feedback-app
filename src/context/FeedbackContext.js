@@ -20,17 +20,33 @@ export const FeedbackProvider = ({ children }) => {
 	//add Feedback
 	const addFeedback = (newFeedback) => {
 		newFeedback.id = +new Date()
-		console.log(newFeedback)
 		//you cant just push newfeedback to set feedback, you need to copy the array then spread the old feedback
 		setFeedback([newFeedback, ...feedback])
 	}
 
 	//set item to be updated
 	const editFeedback = (item) => {
-		setFeedbackEdit({
+		let itemEdit = {
 			item,
 			edit: true,
-		})
+		}
+		setFeedbackEdit(itemEdit)
+		console.log(feedback)
+	}
+
+	const handleEdit = (feedbackInput) => {
+		//copy the feedback array first (why? because its react wkwk)
+		const feedbackUpdate = [...feedback]
+		//then find the index to update
+		const index = feedback.findIndex(
+			(item) => item.id === feedbackEdit.item.id
+		)
+		const indexedFeedback = feedbackUpdate[index]
+		//update the text and rating
+		indexedFeedback.text = feedbackInput.text
+		indexedFeedback.rating = feedbackInput.rating
+		//set it so it can be updated in User Interface
+		setFeedback(feedbackUpdate)
 	}
 
 	return (
@@ -41,6 +57,7 @@ export const FeedbackProvider = ({ children }) => {
 				addFeedback,
 				editFeedback,
 				feedbackEdit,
+				handleEdit,
 			}}>
 			{children}
 		</FeedbackContext.Provider>

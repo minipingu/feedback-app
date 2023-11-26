@@ -5,12 +5,11 @@ import RatingSelect from './RatingSelect'
 import { useContext } from 'react'
 import FeedbackContext from '../context/FeedbackContext'
 function FeedbackForm() {
-	const { addFeedback, feedbackEdit } = useContext(FeedbackContext)
+	const { addFeedback, feedbackEdit, handleEdit } = useContext(FeedbackContext)
 	const [text, setText] = useState('')
 	const [rating, setRating] = useState(10)
 	const [btnDisabled, setBtnDisabled] = useState(true)
 	const [message, setMessage] = useState('')
-
 	useEffect(() => {
 		if (feedbackEdit.edit === true) {
 			setBtnDisabled(false)
@@ -40,11 +39,15 @@ function FeedbackForm() {
 	const handleSubmit = (submit) => {
 		submit.preventDefault()
 		if (text.trim().length > 10) {
-			const newFeedback = {
+			const feedbackInput = {
 				text,
 				rating,
 			}
-			addFeedback(newFeedback)
+			if (feedbackEdit.edit) {
+				handleEdit(feedbackInput)
+			} else {
+				addFeedback(feedbackInput)
+			}
 			setText('')
 			setRating(10)
 		}
