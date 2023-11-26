@@ -3,7 +3,6 @@ import { useContext } from 'react'
 import FeedbackContext from '../context/FeedbackContext'
 function FeedbackStats() {
 	const { feedback } = useContext(FeedbackContext)
-
 	let average =
 		feedback.reduce((total, item) => {
 			return total + item.rating
@@ -17,6 +16,10 @@ function FeedbackStats() {
 			<h4>Average Rating : {isNaN(average) ? 0 : average}</h4>
 		</div>
 	)
+}
+
+FeedbackStats.defaultProps = {
+	feedback: [],
 }
 
 FeedbackStats.propTypes = {
